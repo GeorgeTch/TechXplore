@@ -6,6 +6,7 @@ const nextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "utfs.io" },
       { protocol: "https", hostname: "ideaxapp.azurewebsites.net" },
+      { protocol: "https", hostname: "dummyjson.com" },
     ],
   },
 };

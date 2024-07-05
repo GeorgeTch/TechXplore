@@ -3,21 +3,18 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
-import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
 import { LogOut, Moon, Sun, Settings, BriefcaseBusiness } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Switch } from "../ui/switch";
 import { useRouter } from "next/navigation";
 
-export default function UserBtn({ user }: Session) {
+export default function UserBtn({ user, onSignOut }) {
   const { theme, setTheme } = useTheme();
   const [checked, setChecked] = useState(false);
   const router = useRouter();
@@ -35,6 +32,11 @@ export default function UserBtn({ user }: Session) {
   useEffect(() => {
     setSwithstate();
   }, []);
+
+  const handleSignOut = () => {
+    onSignOut();
+    router.push("/");
+  };
 
   if (user)
     return (
@@ -125,7 +127,7 @@ export default function UserBtn({ user }: Session) {
           )}
 
           <DropdownMenuItem
-            onClick={() => signOut()}
+            onClick={handleSignOut}
             className="py-2 group focus:bg-destructive/30 font-medium cursor-pointer "
           >
             <LogOut
