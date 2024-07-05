@@ -21,7 +21,6 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import FormSuccess from "./FormSuccess";
 import { ResetSchema } from "@/types/reset-schema";
-import { resetPassword } from "@/server/actions/password-reset";
 import FormError from "./FormError";
 
 export default function ResetForm() {
@@ -33,19 +32,6 @@ export default function ResetForm() {
     },
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const { execute, status } = useAction(resetPassword, {
-    onSuccess(data) {
-      if (data?.error) setError(data.error);
-      if (data?.success) setSuccess(data.success);
-    },
-  });
-
-  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
-    execute(values);
-  };
-
   return (
     <AuthCard
       cardTitle="Forgot your password?"
@@ -55,7 +41,7 @@ export default function ResetForm() {
     >
       <div>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form>
             <div>
               <FormField
                 control={form.control}
@@ -77,14 +63,13 @@ export default function ResetForm() {
                   </FormItem>
                 )}
               />
-              <FormSuccess message={success} />
-              <FormError message={error} />
               <Button size={"sm"} variant={"link"} asChild>
                 <Link href={"/auth/reset"}>Forgot your password</Link>
               </Button>
             </div>
 
             <Button
+              disabled
               type="submit"
               className={cn(
                 "w-full my-2",

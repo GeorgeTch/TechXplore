@@ -1,9 +1,5 @@
-import { getReviewAverage } from "@/lib/review-average";
-import AddToCart from "@/components/cart/add-to-cart";
 import Projects from "@/components/projects/projects";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
-import imgPlaceholder from "@/public/image-placeholder.jpg";
 
 export const revalidate = 0;
 

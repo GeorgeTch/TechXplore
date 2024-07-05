@@ -5,10 +5,8 @@ import UserBtn from "./user-button";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
 import { Button } from "../ui/button";
-import CartDrawer from "../cart/cart-drawer";
 import logo from "@/public/Invest X.png";
 import Image from "next/image";
-import { log } from "console";
 
 export default function Nav() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -55,9 +53,7 @@ export default function Nav() {
               />
             </Link>
           </li>
-          <li className="flex items-center relative hover:scale-110 transition-all duration-700 ease-in-out">
-            <CartDrawer />
-          </li>
+
           {!isAuthenticated ? (
             <li className="flex items-center justify-center hover:scale-105 transition-all duration-700 ease-in-out">
               <Button asChild>

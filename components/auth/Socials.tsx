@@ -8,6 +8,7 @@ export default function Socials() {
   return (
     <div className="flex flex-col gap-4 items-center w-full">
       <Button
+        disabled
         className="flex gap-3 w-full"
         variant={"outline"}
         onClick={() =>
@@ -21,6 +22,7 @@ export default function Socials() {
         <FcGoogle className="w-5 h-5" />
       </Button>
       <Button
+        disabled
         className="flex gap-3 w-full"
         variant={"outline"}
         onClick={() =>

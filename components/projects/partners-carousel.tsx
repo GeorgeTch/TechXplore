@@ -72,8 +72,6 @@ export function PartnersCarousel({ companyInfo }) {
     };
   }, [companyInfo]);
 
-  console.log("Blob URLs:", blobUrls);
-
   return (
     <Carousel
       setApi={setApi}

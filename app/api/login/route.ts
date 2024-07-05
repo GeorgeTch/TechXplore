@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 interface UserResponse {
-  token: string; // Assuming your API returns a token field as a string
-  email: string; // Adding email field to UserResponse interface
+  token: string;
+  email: string;
 }
 
 export async function POST(request: Request) {
