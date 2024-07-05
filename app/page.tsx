@@ -42,9 +42,9 @@ export default async function Home() {
       </div>
 
       {/* Partners Section */}
-      <section id="partners" className="py-8 ">
+      <section id="partners" className="py-10 ">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-foreground">
             Our Partner Companies
           </h2>
           <PartnersCarousel companyInfo={data} />
