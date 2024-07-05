@@ -86,7 +86,7 @@ export function PartnersCarousel({ companyInfo }) {
               <Card className="bg-secondary rounded-md hover:opacity-90 hover:scale-105 transition-all duration-500 ease-in-out">
                 <CardContent className="p-0">
                   <Link
-                    href={`/products/${company.id}?id=${company.id}&title=${company.name}`}
+                    href={`/projects/${company.id}?id=${company.id}&title=${company.name}`}
                   >
                     <div className="flex flex-col w-full h-full">
                       <div className="flex-1">
@@ -114,8 +114,8 @@ export function PartnersCarousel({ companyInfo }) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="bg-primary" />
-      <CarouselNext className="bg-primary" />
+      <CarouselPrevious className="bg-primary absolute top-1/2 left-4 sm:-left-12 transform -translate-y-1/2 z-10" />
+      <CarouselNext className="bg-primary absolute top-1/2 right-4 sm:-right-12 transform -translate-y-1/2 z-10" />
     </Carousel>
   );
 }

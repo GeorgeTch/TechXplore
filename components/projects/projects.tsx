@@ -22,8 +22,12 @@ export default function Projects({ projectsInfo }) {
           key={project.name}
           className="flex flex-col gap-3 items-center justify-between w-full h-full bg-secondary rounded-md p-6 hover:opacity-90  transition-all duration-500 ease-in-out relative"
         >
-          <h2 className="self-start text-xl font-bold">{project.name}</h2>
-          <p className="text-sm text-muted-foreground">{project.description}</p>
+          <h2 className="self-start text-xl md:text-2xl font-bold">
+            {project.name}
+          </h2>
+          <p className="text-md md:text-lg text-muted-foreground">
+            {project.description}
+          </p>
           <p className="self-start text-lg text-muted-foreground">
             Completion in {project.endDate.slice(0, 4)}
           </p>

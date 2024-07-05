@@ -22,7 +22,7 @@ import FormSuccess from "./FormSuccess";
 import FormError from "./FormError";
 
 const LoginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
+  email: z.string().min(1, "Email is required"),
   password: z.string().min(1, "Password is required"),
 });
 
@@ -30,7 +30,7 @@ export default function LoginForm() {
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -41,7 +41,7 @@ export default function LoginForm() {
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     try {
       const formData = new FormData();
-      formData.append("username", values.username);
+      formData.append("email", values.email);
       formData.append("password", values.password);
 
       const response = await fetch("/api/login", {
@@ -85,16 +85,16 @@ export default function LoginForm() {
             <div>
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter Username"
+                        placeholder="Enter Email"
                         type="text"
-                        autoComplete="username"
+                        autoComplete="email"
                       />
                     </FormControl>
                     <FormDescription />

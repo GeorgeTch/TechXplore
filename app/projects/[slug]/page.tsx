@@ -81,9 +81,9 @@ export default async function page({ params }: { params: { slug: string } }) {
             /> */}
           </div>
           <div className="flex flex-col flex-2">
-            <h2 className="text-2xl font-bold">{data.name}</h2>
+            <h2 className="text-2xl md:text-4xl font-bold p-2">{data.name}</h2>
             <div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-md md:text-lg text-muted-foreground">
                 Constructed since {data.creationDate.slice(0, 4)}
               </p>
             </div>

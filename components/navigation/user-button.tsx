@@ -41,15 +41,15 @@ export default function UserBtn({ user, onSignOut }) {
   if (user)
     return (
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger>
-          <Avatar className="w-8 h-8">
+        <DropdownMenuTrigger className="p-2">
+          <Avatar className="w-8 h-8 p-2 bg-primary">
             {user.image && (
               <Image src={user.image} alt={user.name!} fill={true} />
             )}
             {!user.image && (
-              <AvatarFallback>
-                <div className="font-bold">
-                  {user.name?.charAt(0).toLocaleUpperCase()}
+              <AvatarFallback className="bg-primary">
+                <div className="font-bold bg-primary">
+                  {user.email?.charAt(0).toLocaleUpperCase()}
                 </div>
               </AvatarFallback>
             )}
