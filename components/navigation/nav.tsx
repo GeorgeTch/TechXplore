@@ -47,7 +47,7 @@ export default function Nav() {
               <Image
                 className="bg-secondary rounded-lg"
                 src={logo}
-                width={100}
+                width={120}
                 height={30}
                 alt="company logo"
               />
