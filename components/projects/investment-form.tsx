@@ -37,7 +37,9 @@ export function InvestmentForm({ projectName }) {
       if (response.ok) {
         setInvestmentStatus({
           success: true,
-          message: "Investment successful!",
+          message: `Successfully invested $${amount} in ${projectName}!`,
+          amount: amount,
+          projectName: projectName,
         });
         setAmount(""); // Reset amount after successful investment
       } else {

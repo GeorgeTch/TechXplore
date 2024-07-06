@@ -33,7 +33,18 @@ export async function POST(request: Request) {
   }
 
   // Parse JSON data from request body
-  const { projectName, amount } = await request.json();
+  // const { projectName, amount } = await request.json();
+  let projectName, amount;
+  try {
+    const body = await request.json();
+    ({ projectName, amount } = body);
+  } catch (error) {
+    console.error("Error parsing request body:", error);
+    return NextResponse.json(
+      { error: "Invalid request body" },
+      { status: 400 }
+    );
+  }
 
   if (!projectName || !amount) {
     return NextResponse.json(
@@ -59,12 +70,13 @@ export async function POST(request: Request) {
 
   if (!response.ok) {
     const errorText = await response.text();
+    console.error("Investment API error:", response.status, errorText);
     return NextResponse.json(
       { error: "Investment failed", details: errorText },
       { status: response.status }
     );
   }
 
-  const result = await response.json();
-  return NextResponse.json({ success: true, data: result });
+  // const result = await response.json();
+  return NextResponse.json({ success: true });
 }
