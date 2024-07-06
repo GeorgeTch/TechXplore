@@ -1,115 +1,49 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import imgPlaceholder from "@/public/image-placeholder.jpg";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { ProjectImages } from "./project-images";
+import { InvestmentForm } from "./investment-form";
+import { Progress } from "@/components/ui/progress";
 
 export default function Projects({ projectsInfo }) {
   const searchParams = useSearchParams();
   const searchTag = searchParams.get("tag");
 
   return (
-    <main className="grid md:grid-cols-1 lg:grid-cols-2 gap-12">
-      {projectsInfo.map((project) => (
-        <div
-          key={project.name}
-          className="flex flex-col gap-3 items-center justify-between w-full h-full bg-secondary rounded-md p-6 hover:opacity-90  transition-all duration-500 ease-in-out relative"
-        >
-          <h2 className="self-start text-xl md:text-2xl font-bold">
-            {project.name}
-          </h2>
-          <p className="text-md md:text-lg text-muted-foreground">
-            {project.description}
-          </p>
-          <p className="self-start text-lg text-muted-foreground">
-            Completion in {project.endDate.slice(0, 4)}
-          </p>
+    <main className="flex flex-col gap-12 max-w-6xl mx-auto">
+      {projectsInfo.map((project) => {
+        const progressValue = Math.round(
+          (project.currentBudget / project.requiredBudget) * 100
+        );
+        return (
+          <div
+            key={project.name}
+            className="flex flex-col justify-center items-center lg:flex-row gap-6 lg:items-start w-full bg-secondary rounded-md p-6 relative"
+          >
+            <div className="w-full md:w-3/4 lg:w-1/2 max-h-[400px] overflow-hidden">
+              <ProjectImages project={project} />
+            </div>
+            <div className="w-full lg:w-1/2 flex flex-col gap-4">
+              <h2 className="text-xl md:text-2xl font-bold">{project.name}</h2>
+              <p className="text-md md:text-lg text-muted-foreground">
+                {project.description}
+              </p>
+              <p className="text-lg text-muted-foreground">
+                Completion in {project.endDate.slice(0, 4)}
+              </p>
+              <p className="text-lg text-secondary-foreground">
+                Required fund: ${project.requiredBudget}
+              </p>
+              <div className="text-lg text-secondary-foreground">
+                Funding progress: {progressValue}%
+                <Progress value={progressValue} />
+              </div>
 
-          <ProjectImages project={project} />
-        </div>
-      ))}
+              <InvestmentForm projectName={project.name} />
+            </div>
+          </div>
+        );
+      })}
     </main>
-  );
-}
-
-function ProjectImages({ project }) {
-  const [blobUrls, setBlobUrls] = useState([]);
-
-  useEffect(() => {
-    async function fetchImages() {
-      const newBlobUrls = await Promise.all(
-        project.images.map(async (image) => {
-          try {
-            const response = await fetch(
-              `https://ideaxapp.azurewebsites.net/v1/Image/${image.url}`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/octet-stream",
-                },
-              }
-            );
-            const blob = await response.blob();
-            return URL.createObjectURL(blob);
-          } catch (error) {
-            console.error("Error fetching image:", error);
-            return null;
-          }
-        })
-      );
-
-      setBlobUrls(newBlobUrls.filter(Boolean));
-    }
-
-    fetchImages();
-
-    return () => {
-      blobUrls.forEach((url) => {
-        URL.revokeObjectURL(url);
-      });
-    };
-  }, [project]);
-
-  if (blobUrls.length === 0) {
-    return (
-      <img
-        className="rounded-md"
-        src={imgPlaceholder.src}
-        alt={project.name}
-        width={720}
-        height={480}
-        loading="lazy"
-      />
-    );
-  }
-
-  return (
-    <div className="relative">
-      <Carousel className="w-full mt-2">
-        <CarouselContent>
-          {blobUrls.map((blobUrl, index) => (
-            <CarouselItem key={index} className="p-1">
-              <img
-                className="rounded-md"
-                src={blobUrl}
-                alt={project.name}
-                width={720}
-                height={480}
-                loading="lazy"
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="bg-primary absolute top-1/2 left-4 transform -translate-y-1/2 z-10" />
-        <CarouselNext className="bg-primary absolute top-1/2 right-4 transform -translate-y-1/2 z-10" />
-      </Carousel>
-    </div>
   );
 }
